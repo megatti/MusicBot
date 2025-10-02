@@ -102,9 +102,8 @@ class Playlist(EventEmitter, Serializable):
 
     def insert_entry_at_index(self, index: int, entry: EntryTypes) -> None:
         """Add entry to the queue at the given index."""
-        self.entries.rotate(-index)
-        self.entries.appendleft(entry)
-        self.entries.rotate(index)
+        index = index % len(self.entries)
+        self.entries.insert(index, entry)
 
     async def add_stream_from_info(
         self,
