@@ -90,10 +90,8 @@ class Playlist(EventEmitter, Serializable):
         Uses deque rotate to seek to the given `index` and reference the
         entry at that position.
         """
-        self.entries.rotate(-index)
-        entry = self.entries[0]
-        self.entries.rotate(index)
-        return entry
+        index = index % len(self.entries)
+        return self.entries[index]
 
     def delete_entry_at_index(self, index: int) -> EntryTypes:
         """Remove and return the entry at the given index."""
