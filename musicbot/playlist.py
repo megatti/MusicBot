@@ -95,9 +95,9 @@ class Playlist(EventEmitter, Serializable):
 
     def delete_entry_at_index(self, index: int) -> EntryTypes:
         """Remove and return the entry at the given index."""
-        self.entries.rotate(-index)
-        entry = self.entries.popleft()
-        self.entries.rotate(index)
+        index = index % len(self.entries)
+        entry = self.entries[index]
+        del self.entries[index]
         return entry
 
     def insert_entry_at_index(self, index: int, entry: EntryTypes) -> None:
